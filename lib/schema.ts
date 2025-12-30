@@ -12,6 +12,7 @@ export const users = p.pgTable("users", {
 
 export const sessions = p.pgTable("session", {
   id: p.text("id").primaryKey(),
+  token: p.text("token").notNull().unique(),
   expiresAt: p.timestamp("expires_at").notNull(),
   ipAddress: p.text("ip_address"),
   userAgent: p.text("user_agent"),
@@ -19,6 +20,7 @@ export const sessions = p.pgTable("session", {
     .text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  ...timestamps,
 });
 
 export const accounts = p.pgTable("account", {
@@ -34,6 +36,7 @@ export const accounts = p.pgTable("account", {
   idToken: p.text("id_token"),
   expiresAt: p.timestamp("expires_at"),
   password: p.text("password"),
+  ...timestamps,
 });
 
 export const verifications = p.pgTable("verification", {
@@ -41,7 +44,7 @@ export const verifications = p.pgTable("verification", {
   identifier: p.text("identifier").notNull(),
   value: p.text("value").notNull(),
   expiresAt: p.timestamp("expires_at").notNull(),
-  createdAt: p.timestamp("created_at"),
+  ...timestamps,
 });
 
 export const wallets = p.pgTable("wallets", {
