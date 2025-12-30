@@ -45,7 +45,7 @@ export const verifications = p.pgTable("verification", {
 });
 
 export const wallets = p.pgTable("wallets", {
-  id: p.integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: p.uuid("id").defaultRandom().primaryKey(),
   userId: p
     .text("user_id")
     .notNull()
@@ -57,8 +57,8 @@ export const wallets = p.pgTable("wallets", {
     .decimal("balance", { precision: 15, scale: 2 })
     .default("0")
     .notNull(),
-  currency: p.varchar("currency", { length: 3 }).default("IDR"),
-  isMain: p.boolean("is_main").default(false),
+  currency: p.varchar("currency", { length: 3 }).default("IDR").notNull(),
+  isMain: p.boolean("is_main").default(false).notNull(),
   ...timestamps,
 });
 
