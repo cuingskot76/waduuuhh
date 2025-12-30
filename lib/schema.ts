@@ -45,7 +45,7 @@ export const verifications = p.pgTable("verification", {
 });
 
 export const wallets = p.pgTable("wallets", {
-  id: p.integer().primaryKey().generatedAlwaysAsIdentity(),
+  id: p.uuid("id").defaultRandom().primaryKey(),
   userId: p
     .text("user_id")
     .notNull()
