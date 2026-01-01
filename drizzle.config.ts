@@ -6,7 +6,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 export default defineConfig({
-  schema: "./lib/schema.ts",
+  schema: [
+    "./lib/auth-schema.ts",
+    "./lib/schema.ts",
+    "./lib/db/columns.helpers.ts",
+  ],
   out: "./lib/db/drizzle",
   dialect: "postgresql",
   dbCredentials: {
